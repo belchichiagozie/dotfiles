@@ -336,7 +336,6 @@
       kscreenlockerrc."Greeter/Wallpaper/org.kde.image/General".PreviewImage = "file:///home/belchi/Pictures/D2_Evergreen_Key-Art_Crops_JB_3840x2160.jpg";
       kscreenlockerrc."Greeter/Wallpaper/org.kde.image/General".SlidePaths = "/home/belchi/.local/share/wallpapers/,/usr/share/wallpapers/";
       ksplashrc.KSplash.Engine = "KSplashQML";
-      ksplashrc.KSplash.Theme = "Fedora-Minimalistic";
       kwalletrc.Wallet."First Use" = false;
       kwinrc.Desktops.Id_1 = "eca7803c-950a-43e0-93cc-cdda3c959391";
       kwinrc.Desktops.Number = 1;

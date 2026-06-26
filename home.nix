@@ -30,6 +30,8 @@
         nixd
         libreoffice-qt-fresh
         fish
+        meslo-lgs-nf
+        pokeget-rs
    ];
 
    home.sessionVariables = {

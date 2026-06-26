@@ -1,5 +1,12 @@
 { pkgs, ... }:
 
+let
+  WallpaperOverride = pkgs.writeTextDir "share/sddm/themes/breeze/theme.conf.user" ''
+    [General]
+    background=${./Wallpapers/traveller.jpg}
+    type=image
+  '';
+in
 {
   imports =
     [
@@ -51,12 +58,6 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
   };
 
   users.users."belchi" = {
@@ -66,7 +67,7 @@
   };
 
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
-    elisa khelpcenter konversation ktorrent qrca kate
+    elisa khelpcenter konversation ktorrent qrca kate discover kinfocenter kwalletmanager
   ];
 
   programs.firefox.enable = true;
@@ -84,7 +85,15 @@
       nix-search-cli
       comma
       appimage-run
+      nix-index
+      WallpaperOverride
   ];
+
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 7d";
+  };
 
   services.power-profiles-daemon.enable = false;
     services.tlp = {
@@ -103,5 +112,4 @@
   services.openssh.enable = true;
 
   system.stateVersion = "26.05";
-
 }
