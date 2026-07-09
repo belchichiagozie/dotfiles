@@ -15,14 +15,23 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+
+    mac-plymouth = {
+      url = "github:SergioRibera/s4rchiso-plymouth-theme";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = {self, nixpkgs, home-manager, plasma-manager, ... }: {
+  outputs = {self, nixpkgs, home-manager, plasma-manager, mac-plymouth, ... }: {
     nixosConfigurations.SNAIL = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
         ./configuration.nix
         ./hardware-configuration.nix
+
+        {
+          nixpkgs.overlays = [ mac-plymouth.overlays.default ];
+        }
 
         home-manager.nixosModules.home-manager
         {
