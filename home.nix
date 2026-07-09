@@ -11,14 +11,17 @@
 
    home.packages = with pkgs; [
     papirus-icon-theme
+
     obsidian
     davinci-resolve
     cider-2
     parsec-bin
+
     zed-editor
     proton-vpn
     proton-pass
     proton-authenticator
+
     audacity
     vlc
     anki
@@ -28,15 +31,23 @@
     kdePackages.kdeconnect-kde
     nixd
     libreoffice-qt-fresh
+
     meslo-lgs-nf
     pokeget-rs
+
     maestral
     maestral-gui
+
     firefox
+
     calibre
     libgourou
+
     ffmpeg
     yt-dlp
+
+    fishPlugins.tide
+    fishPlugins.autopair
    ];
 
    programs.fish = {
@@ -50,6 +61,16 @@
             else
               pokeget $random_id --hide-name
             end
+         '';
+       };
+       fish_promt = {
+         body = ''
+           set -l nix_shell_info (
+             if test -n "$IN_NIX_SHELL"
+               echo -n "<nix-shell> "
+             end
+           )
+           echo -n -s "$nix_shell_info ~>"
          '';
        };
      };

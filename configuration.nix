@@ -19,7 +19,7 @@ let
       echo "Rebuilding NixOS..."
       sudo nixos-rebuild switch --flake .#SNAIL
 
-      current_gen=$(nixos-rebuild list-generations | grep current -i)
+      current_gen=$(nixos-rebuild list-generations | grep 'True$' | awk '{print $1, $2, $3}')
 
       git add .
       git commit -m "NixOS Rebuild: $current_gen"
