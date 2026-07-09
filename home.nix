@@ -63,7 +63,7 @@
             end
          '';
        };
-       fish_promt = {
+       fish_prompt = {
          body = ''
            set -l nix_shell_info (
              if test -n "$IN_NIX_SHELL"
