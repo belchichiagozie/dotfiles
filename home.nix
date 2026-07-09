@@ -10,37 +10,49 @@
     home.stateVersion = "26.05";
 
    home.packages = with pkgs; [
-      papirus-icon-theme
-        obsidian
-        davinci-resolve
-        cider-2
-        parsec-bin
-        zed-editor
-        proton-vpn
-        proton-pass
-        proton-authenticator
-        audacity
-        vlc
-        anki
-        teams-for-linux
-        zapzap
-        protonup-qt
-        kdePackages.kdeconnect-kde
-        nixd
-        libreoffice-qt-fresh
-        meslo-lgs-nf
-        pokeget-rs
-        maestral
-        maestral-gui
-        firefox
-        calibre
-        libgourou
-        ffmpeg
-        yt-dlp
+    papirus-icon-theme
+    obsidian
+    davinci-resolve
+    cider-2
+    parsec-bin
+    zed-editor
+    proton-vpn
+    proton-pass
+    proton-authenticator
+    audacity
+    vlc
+    anki
+    teams-for-linux
+    zapzap
+    protonup-qt
+    kdePackages.kdeconnect-kde
+    nixd
+    libreoffice-qt-fresh
+    meslo-lgs-nf
+    pokeget-rs
+    maestral
+    maestral-gui
+    firefox
+    calibre
+    libgourou
+    ffmpeg
+    yt-dlp
    ];
 
    programs.fish = {
      enable = true;
+     functions = {
+       fish_greeting = {
+         body = ''
+           set random_id (random 1 721)
+            if test (random 1 100) -eq 1
+              pokeget $random_id --shiny --hide-name
+            else
+              pokeget $random_id --hide-name
+            end
+         '';
+       };
+     };
    };
 
   systemd.user.services.maestral = {
@@ -48,11 +60,9 @@
         Description = "Maestral Dropbox Sync Daemon";
         After = [ "network-online.target" ];
       };
-
       Install = {
         WantedBy = [ "graphical-session.target" ];
       };
-
       Service = {
         Type = "notify";
         ExecStart = "${pkgs.maestral}/bin/maestral start -f";

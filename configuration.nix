@@ -7,7 +7,7 @@ let
     type=image
   '';
 
-  rebuild = pkgs.writeShellScriptBin "nixos-run" ''
+  rebuild = pkgs.writeShellScriptBin "rebuild" ''
       set -e
       cd ~/dotfiles/
 
