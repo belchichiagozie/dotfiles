@@ -125,6 +125,7 @@ in
       WallpaperOverride
       rebuild
       xwayland
+      gnome-network-displays
   ];
 
   hardware.graphics = {
