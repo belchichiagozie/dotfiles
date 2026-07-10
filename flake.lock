@@ -75,6 +75,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-stable": {
+      "locked": {
+        "lastModified": 1783389287,
+        "narHash": "sha256-0xIy4dVLqq47rA+mRy0hXDfjhQd4E5PoIns/RmB7nR4=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "0ad6f47ea4fe188f4bc8f0380f93ae8523337c6c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-26.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "plasma-manager": {
       "inputs": {
         "home-manager": [
@@ -103,6 +119,7 @@
         "home-manager": "home-manager",
         "mac-plymouth": "mac-plymouth",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-stable": "nixpkgs-stable",
         "plasma-manager": "plasma-manager"
       }
     },

@@ -4,6 +4,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-26.05";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -22,7 +23,7 @@
     };
   };
 
-  outputs = {self, nixpkgs, home-manager, plasma-manager, mac-plymouth, ... }: {
+  outputs = {self, nixpkgs, nixpkgs-stable, home-manager, plasma-manager, mac-plymouth, ... }: {
     nixosConfigurations.SNAIL = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
@@ -30,7 +31,15 @@
         ./hardware-configuration.nix
 
         {
-          nixpkgs.overlays = [ mac-plymouth.overlays.default ];
+          nixpkgs.overlays = [
+            mac-plymouth.overlays.default
+            (final: prev: {
+              stable = import nixpkgs-stable {
+                system = prev.system;
+                config.allowUnfree = true;
+              };
+            })
+          ];
         }
 
         home-manager.nixosModules.home-manager

@@ -124,6 +124,7 @@ in
       home-manager
       WallpaperOverride
       rebuild
+      xwayland
   ];
 
   hardware.graphics = {

@@ -13,7 +13,7 @@
     papirus-icon-theme
 
     obsidian
-    davinci-resolve
+    stable.davinci-resolve
     cider-2
     parsec-bin
 
