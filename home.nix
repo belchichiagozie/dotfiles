@@ -63,11 +63,22 @@
             end
          '';
        };
-       in_nix_shell = {
-         body = ''
-           test -n "$IN_NIX_SHELL"
-         '';
-       };
+       toh264 = {
+             body = ''
+               if test (count $argv) -lt 1
+                echo "Error: Please provide an input file."
+                echo "Usage: optimize_video input_file.mov"
+                return 1
+              end
+
+            set -l file $argv[1]
+            set -l out_dir (path dirname $file)
+            set -l filename (path change-extension "" (basename $file))
+            set -l out_file "$out_dir/$filename.mp4"
+
+            ffmpeg -i $file -vcodec libx264 -profile:v high -level:v 4.1 -pix_fmt yuv420p -crf 20 -acodec aac-ar 44100 $out_file
+             '';
+           };
      };
    };
 
