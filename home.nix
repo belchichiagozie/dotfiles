@@ -53,32 +53,48 @@
    programs.fish = {
      enable = true;
      functions = {
-       fish_greeting = {
-         body = ''
-           set random_id (random 1 721)
+      fish_greeting = {
+        body = ''
+          set random_id (random 1 721)
             if test (random 1 100) -eq 1
               pokeget $random_id --shiny --hide-name
             else
               pokeget $random_id --hide-name
             end
          '';
-       };
-       toh264 = {
-             body = ''
-               if test (count $argv) -lt 1
-                echo "Error: Please provide an input file."
-                echo "Usage: optimize_video input_file.mov"
-                return 1
-              end
+      };
+      toh264 = {
+        body = ''
+          if test (count $argv) -lt 1
+            echo "Error: Please provide an input file."
+            echo "Usage: optimize_video input_file.mov"
+            return 1
+          end
 
-            set -l file $argv[1]
-            set -l out_dir (path dirname $file)
-            set -l filename (path change-extension "" (basename $file))
-            set -l out_file "$out_dir/$filename.mp4"
+          set -l file $argv[1]
+          set -l out_dir (path dirname $file)
+          set -l filename (path change-extension "" (basename $file))
+          set -l out_file "$out_dir/$filename.mp4"
 
-            ffmpeg -i $file -vcodec libx264 -profile:v high -level:v 4.1 -pix_fmt yuv420p -crf 20 -acodec aac-ar 44100 $out_file
-             '';
-           };
+          ffmpeg -i $file -vcodec libx264 -profile:v high -level:v 4.1 -pix_fmt yuv420p -crf 20 -acodec aac -ar 44100 $out_file
+        '';
+      };
+      toprores = {
+        body  = ''
+          if test (count $argv) -lt 1
+            echo "Error: Please provide an input file."
+            echo "Usage: optimize_video input_file.mp4"
+            return 1
+          end
+
+          set -l file $argv[1]
+          set -l out_dir (path dirname $file)
+          set -l filename (path change-extension "" (basename $file))
+          set -l out_file "$filename.mov"
+
+          ffmpeg -i $file -vcodec prores -profile:v 1 -acodec pcm_s16le -threads 0 $out_file
+        '';
+      };
      };
    };
 
