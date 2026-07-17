@@ -76,6 +76,7 @@ in
   services.xserver.excludePackages = [ pkgs.xterm ];
 
   services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
   services.desktopManager.plasma6.enable = true;
 
   hardware.bluetooth.enable = true;
@@ -145,16 +146,7 @@ in
     options = "--delete-older-than 7d";
   };
 
-  services.power-profiles-daemon.enable = false;
-    services.tlp = {
-      enable = true;
-      settings = {
-        CPU_BOOST_ON_AC = 1;
-        CPU_BOOST_ON_BAT = 1;
-        CPU_SCALING_GOVERNOR_ON_AC = "performance";
-        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-      };
-    };
+  services.power-profiles-daemon.enable = true;
 
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     elisa khelpcenter konversation ktorrent qrca kate discover kinfocenter kwalletmanager
