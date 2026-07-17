@@ -126,6 +126,7 @@ in
       rebuild
       xwayland
       gnome-network-displays
+      virt-manager
   ];
 
   hardware.graphics = {
