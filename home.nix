@@ -48,6 +48,7 @@
 
     fishPlugins.tide
     fishPlugins.autopair
+    fishPlugins.sponge
    ];
 
    programs.fish = {
