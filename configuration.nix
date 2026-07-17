@@ -89,6 +89,7 @@ in
 
   services.printing.enable = true;
 
+  virtualisation.libvirtd.enable = true;
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -101,7 +102,7 @@ in
   users.users."belchi" = {
     isNormalUser = true;
     description = "Belchi Emeka-Gwacham";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd"];
   };
 
   programs.steam = {
