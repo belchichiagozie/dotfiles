@@ -3,13 +3,13 @@
 let
   WallpaperOverride = pkgs.writeTextDir "share/sddm/themes/breeze/theme.conf.user" ''
     [General]
-    background=${./Wallpapers/traveller.jpg}
+    background=${../wallpapers/traveller.jpg}
     type=image
   '';
 
   rebuild = pkgs.writeShellScriptBin "rebuild" ''
       set -e
-      cd ~/dotfiles/
+      cd ~/dotfiles/nix
 
       if git diff --quiet HEAD; then
           echo "No changes detected. Skipping rebuild."
