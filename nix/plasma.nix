@@ -3,13 +3,17 @@
     enable = true;
     overrideConfig = true;
 
+    workspace = {
+      colorScheme = "BreezeDark";
+      lookAndFeel = "org.kde.breezedark.desktop";
+    };
+
     panels = [{
       location = "bottom";
       height = 48;
 
       widgets = [
-        "org.kde.plasma.kickoff"
-
+        { kickoff = { icon = "nix-snowflake-white"; }; }
         {
           iconTasks = {
             launchers = [
