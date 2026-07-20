@@ -1,11 +1,14 @@
+{ pkgs, ... }:
 {
   programs.plasma = {
     enable = true;
     overrideConfig = true;
 
     workspace = {
-      colorScheme = "BreezeDark";
       lookAndFeel = "org.kde.breezedark.desktop";
+      colorScheme = "BreezeDark";
+      wallpaper = ./../wallpapers/traveller.jpg;
+      iconTheme = "Papirus-Dark";
     };
 
     panels = [{
@@ -13,7 +16,12 @@
       height = 48;
 
       widgets = [
-        { kickoff = { icon = "nix-snowflake-white"; }; }
+        {
+          kickoff = {
+            icon = "nix-snowflake-white";
+          };
+        }
+
         {
           iconTasks = {
             launchers = [
