@@ -2,7 +2,6 @@
 {
   programs.plasma = {
     enable = true;
-    overrideConfig = true;
 
     workspace = {
       lookAndFeel = "org.kde.breezedark.desktop";
@@ -37,8 +36,6 @@
               "applications:proton.vpn.app.gtk.desktop"
               "applications:proton-pass.desktop"
               "applications:davinci-resolve.desktop"
-              "applications:org.kde.plasma.systemmonitor.desktop"
-              "applications:anki.desktop"
               "applications:teams-for-linux.desktop"
             ];
           };
