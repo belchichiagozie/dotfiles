@@ -2,7 +2,7 @@
 {
 
     imports = [
-        ./plasma-generated.nix
+      ./plasma.nix
     ];
 
     home.username = "belchi";
@@ -114,11 +114,4 @@
         WatchdogSec = "30s";
       };
   };
-
-  programs.plasma.panels = [
-  {
-      location = "bottom";
-      height = 48;
-  }
-  ];
 }
