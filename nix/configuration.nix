@@ -100,10 +100,13 @@ in
     pulse.enable = true;
   };
 
+  programs.fish.enable = true;
+
   users.users."belchi" = {
     isNormalUser = true;
     description = "Belchi Emeka-Gwacham";
     extraGroups = [ "networkmanager" "wheel" "libvirtd"];
+    shell = pkgs.fish;
   };
 
   programs.steam = {
