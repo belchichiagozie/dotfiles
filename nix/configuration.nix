@@ -111,7 +111,15 @@ in
 
   programs.steam = {
     enable = true;
-    gamescopeSession.enable = true;
+    gamescopeSession = {
+      enable = true;
+      args = [
+        "-W 1920"
+        "-H 1080"
+        "-r 60"
+        "-e"
+      ];
+    };
   };
   programs.gamemode.enable = true;
 
