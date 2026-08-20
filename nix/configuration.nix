@@ -168,6 +168,12 @@ in
     elisa khelpcenter konversation ktorrent qrca kate discover kinfocenter kwalletmanager
   ];
 
+
+  networking.firewall = {
+    enable = true;
+    trustedInterfaces = [ "proton0" ];
+  };
+
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   hardware.amdgpu.opencl.enable = true;
 
