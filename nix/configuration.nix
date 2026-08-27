@@ -111,22 +111,9 @@ in
 
   programs.steam = {
     enable = true;
-    gamescopeSession = {
-      enable = true;
-      args = [
-        "-W 1920"
-        "-H 1080"
-        "-r 60"
-        "-e"
-      ];
-    };
+    gamescopeSession.enable= true;
   };
   programs.gamemode.enable = true;
-
-  programs.gamescope = {
-    enable = true;
-    capSysNice = true;
-  };
 
   nixpkgs.config.allowUnfree = true;
 

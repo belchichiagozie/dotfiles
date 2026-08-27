@@ -16,6 +16,7 @@
     stable.davinci-resolve
     cider-2
     parsec-bin
+    lutris
 
     zed-editor
     proton-vpn
