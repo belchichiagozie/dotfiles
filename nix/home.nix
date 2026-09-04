@@ -23,6 +23,8 @@
     proton-pass
     proton-authenticator
 
+    texliveFull
+
     audacity
     vlc
     anki
