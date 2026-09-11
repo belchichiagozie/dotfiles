@@ -1,6 +1,4 @@
 {
-  description = "SNAIL ThinkPad Desktop Flake";
-
   inputs = {
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-26.05";
@@ -19,69 +17,25 @@
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
   };
 
-  outputs = {self, nixpkgs-unstable, nixpkgs-stable, home-manager, plasma-manager, nix-flatpak, ... }: {
-    nixosConfigurations.SNAIL = nixpkgs-unstable.lib.nixosSystem {
+  outputs = { self, nixpkgs-unstable, nixpkgs-stable, home-manager, plasma-manager, nix-flatpak, ... }:
+  let
+    sharedOverlays = [
+      (final: prev: {
+        stable = import nixpkgs-stable {
+          system = prev.system;
+          config.allowUnfree = true;
+        };
+      })
+    ];
+
+    mkHost = { hostModule, homeModule }: nixpkgs-unstable.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
-        ./configuration.nix
-        ./hardware-configuration.nix
-
+        hostModule
+        ./modules/core.nix
         {
-          nixpkgs.config.allowUnfree = true;
-          nixpkgs.overlays = [
-            (final: prev: {
-              stable = import nixpkgs-stable {
-                system = prev.system;
-                config.allowUnfree = true;
-              };
-            })
-
-            (final: prev: {
-              kdePackages = prev.kdePackages // {
-                plasma-workspace = let
-                  basePkg = prev.kdePackages.plasma-workspace;
-
-                  xdgdataPkg = final.stdenv.mkDerivation {
-                    name = "${basePkg.name}-xdgdata";
-                    buildInputs = [ basePkg ];
-                    dontUnpack = true;
-                    dontFixup = true;
-                    dontWrapQtApps = true;
-                    installPhase = ''
-                      mkdir -p $out/share
-                      ( IFS=:
-                        for DIR in $XDG_DATA_DIRS; do
-                          if [[ -d "$DIR" ]]; then
-                            cp -r $DIR/. $out/share/
-                            chmod -R u+w $out/share
-                          fi
-                        done
-                      )
-                    '';
-                  };
-
-                  derivedPkg = basePkg.overrideAttrs {
-                    preFixup = ''
-                      for index in "''${!qtWrapperArgs[@]}"; do
-                        if [[ ''${qtWrapperArgs[$((index+0))]} == "--prefix" ]] && [[ ''${qtWrapperArgs[$((index+1))]} == "XDG_DATA_DIRS" ]]; then
-                          unset -v "qtWrapperArgs[$((index+0))]"
-                          unset -v "qtWrapperArgs[$((index+1))]"
-                          unset -v "qtWrapperArgs[$((index+2))]"
-                          unset -v "qtWrapperArgs[$((index+3))]"
-                        fi
-                      done
-                      qtWrapperArgs=("''${qtWrapperArgs[@]}")
-                      qtWrapperArgs+=(--prefix XDG_DATA_DIRS : "${xdgdataPkg}/share")
-                      qtWrapperArgs+=(--prefix XDG_DATA_DIRS : "$out/share")
-                    '';
-                  };
-                in derivedPkg;
-              };
-            })
-
-          ];
+          nixpkgs.overlays = sharedOverlays;
         }
-
         nix-flatpak.nixosModules.nix-flatpak
         home-manager.nixosModules.home-manager
         {
@@ -89,7 +43,8 @@
           home-manager.useUserPackages = true;
           home-manager.users.belchi = {
             imports = [
-              ./home.nix
+              ./home/common.nix
+              homeModule
               plasma-manager.homeModules.plasma-manager
               nix-flatpak.homeManagerModules.nix-flatpak
             ];
@@ -97,6 +52,18 @@
           home-manager.backupFileExtension = "backup";
         }
       ];
+    };
+  in {
+    nixosConfigurations = {
+      SNAIL = mkHost {
+        hostModule = ./hosts/SNAIL/configuration.nix;
+        homeModule = ./home/snail.nix;
+      };
+
+      GIRAFFE = mkHost {
+        hostModule = ./hosts/GIRAFFE/configuration.nix;
+        homeModule = ./home/giraffe.nix;
+      };
     };
   };
 }
