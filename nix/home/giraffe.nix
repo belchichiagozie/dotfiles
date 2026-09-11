@@ -21,6 +21,8 @@
       workspace.wallpaper = ../../../wallpapers/gia-nguyen-3.jpg;
       panels = [
         {
+          location = "bottom";
+          height = 48;
           widgets = [
             {
               kickoff = {

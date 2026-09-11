@@ -51,13 +51,6 @@
         iconTheme = "Papirus-Dark";
       };
 
-      panels = [
-        {
-          location = "bottom";
-          height = 48;
-        }
-      ];
-
     };
   };
 

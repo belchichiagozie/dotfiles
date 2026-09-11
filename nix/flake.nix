@@ -64,7 +64,6 @@
       GIRAFFE = mkHost {
         hostModule = ./hosts/GIRAFFE/configuration.nix;
         homeModule = ./home/giraffe.nix;
-        extraOverlays = [ (import ./modules/plasma-overlay.nix) ];
       };
     };
   };
