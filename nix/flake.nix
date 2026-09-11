@@ -28,13 +28,13 @@
       })
     ];
 
-    mkHost = { hostModule, homeModule }: nixpkgs-unstable.lib.nixosSystem {
+    mkHost = { hostModule, homeModule, extraOverlays ? [] }: nixpkgs-unstable.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
         hostModule
         ./modules/core.nix
         {
-          nixpkgs.overlays = sharedOverlays;
+          nixpkgs.overlays = sharedOverlays ++ extraOverlays;
         }
         nix-flatpak.nixosModules.nix-flatpak
         home-manager.nixosModules.home-manager
@@ -58,11 +58,13 @@
       SNAIL = mkHost {
         hostModule = ./hosts/SNAIL/configuration.nix;
         homeModule = ./home/snail.nix;
+        extraOverlays = [ (import ./modules/plasma-overlay.nix) ];
       };
 
       GIRAFFE = mkHost {
         hostModule = ./hosts/GIRAFFE/configuration.nix;
         homeModule = ./home/giraffe.nix;
+        extraOverlays = [ (import ./modules/plasma-overlay.nix) ];
       };
     };
   };
