@@ -30,6 +30,7 @@ in
     printing.enable = true;
     openssh.enable = true;
     power-profiles-daemon.enable = true;
+    flatpak.enable = true;
 
     # Sound
     pulseaudio.enable = false;
