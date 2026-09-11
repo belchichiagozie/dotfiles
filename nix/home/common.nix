@@ -11,6 +11,7 @@
       parsec-bin
       appimage-run
       git
+      nixd
 
       proton-vpn
       proton-pass
@@ -19,6 +20,9 @@
       fishPlugins.tide
       fishPlugins.autopair
       fishPlugins.sponge
+
+      kdePackages.kdeconnect-kde
+      zed-editor
     ];
   };
 
@@ -70,7 +74,6 @@
         enable = true;
         onCalendar = "weekly";
       };
-      uninstallUnmanaged = true;
     };
   };
 }

@@ -9,15 +9,12 @@
       obsidian
       stable.davinci-resolve
       lutris
-      zed-editor
       texliveFull
       audacity
       anki
       teams-for-linux
       zapzap
-      protonup-qt
-      kdePackages.kdeconnect-kde
-      nixd
+      protonplus
       libreoffice-qt-fresh
       meslo-lgs-nf
       maestral
@@ -31,7 +28,6 @@
   };
 
   programs = {
-
     plasma = {
       workspace.wallpaper = ./../../wallpapers/traveller.jpg;
       panels = [
