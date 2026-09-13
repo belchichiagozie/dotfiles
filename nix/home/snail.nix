@@ -24,6 +24,7 @@
       ffmpeg
       yt-dlp
       virt-manager
+      moonlight-qt
     ];
   };
 
